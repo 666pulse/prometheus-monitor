@@ -38,10 +38,21 @@ def get_metrics():
     slow_metric = Gauge("gas_slow", "gas slow", registry=registry)
     slow_metric.set(slow)
 
-    icp_price = get_icp_price()
+    btc_price = get_btc_price()
+    btc_price_metric = Gauge("btc_price", "btc price", registry=registry)
+    btc_price_metric.set(btc_price)
 
+    eth_price = get_eth_price()
+    eth_price_metric = Gauge("eth_price", "eth price", registry=registry)
+    eth_price_metric.set(eth_price)
+
+    icp_price = get_icp_price()
     icp_price_metric = Gauge("icp_price", "icp price", registry=registry)
     icp_price_metric.set(icp_price)
+
+    ftm_price = get_ftm_price()
+    ftm_price_metric = Gauge("ftm_price", "ftm price", registry=registry)
+    ftm_price_metric.set(ftm_price)
 
     return registry
 
@@ -69,14 +80,30 @@ def get_gasprices():
 
     return gasprices
 
-def get_icp_price():
+def get_coin_price(coin):
     # https://www.gate.io/api2#ticker
 
     headers = {'content-type': 'application/json'}
-    url = "https://data.gateapi.io/api2/1/ticker/icp_usdt"
+    url = "https://data.gateapi.io/api2/1/ticker/"+coin+"_usdt"
 
     resp = requests.request("GET", url).json()
     price = float(resp['last'])
+    return price
+
+def get_ftm_price():
+    price = get_coin_price("ftm")
+    return price
+
+def get_btc_price():
+    price = get_coin_price("btc")
+    return price
+
+def get_eth_price():
+    price = get_coin_price("eth")
+    return price
+
+def get_icp_price():
+    price = get_coin_price("icp")
     return price
 
 if __name__ == '__main__':
