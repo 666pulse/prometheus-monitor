@@ -19,10 +19,12 @@ def get_metrics():
 
     gasprices = get_gasprices()
 
-    rapid = gasprices['rapid']
-    fast = gasprices['fast']
-    standard = gasprices['standard']
-    slow = gasprices['slow']
+    # https://eth-converter.com/
+    gwei = 1000000000
+    rapid = gasprices['rapid']/gwei
+    fast = gasprices['fast']/gwei
+    standard = gasprices['standard']/gwei
+    slow = gasprices['slow']/gwei
 
     rapid_metric = Gauge("gas_rapid", "gas rapid", registry=registry)
     rapid_metric.set(rapid)
