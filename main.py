@@ -38,6 +38,11 @@ def get_metrics():
     slow_metric = Gauge("gas_slow", "gas slow", registry=registry)
     slow_metric.set(slow)
 
+    icp_price = get_icp_price()
+
+    icp_price_metric = Gauge("icp_price", "icp price", registry=registry)
+    icp_price_metric.set(icp_price)
+
     return registry
 
 def get_gasprices():
@@ -63,6 +68,16 @@ def get_gasprices():
     gasprices = resp['data']
 
     return gasprices
+
+def get_icp_price():
+    # https://www.gate.io/api2#ticker
+
+    headers = {'content-type': 'application/json'}
+    url = "https://data.gateapi.io/api2/1/ticker/icp_usdt"
+
+    resp = requests.request("GET", url).json()
+    price = float(resp['last'])
+    return price
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
