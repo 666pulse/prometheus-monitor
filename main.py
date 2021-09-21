@@ -54,6 +54,30 @@ def get_metrics():
     ftm_price_metric = Gauge("ftm_price", "ftm price", registry=registry)
     ftm_price_metric.set(ftm_price)
 
+    sol_price = get_sol_price()
+    sol_price_metric = Gauge("sol_price", "sol price", registry=registry)
+    sol_price_metric.set(sol_price)
+
+    avax_price = get_avax_price()
+    avax_price_metric = Gauge("avax_price", "avax price", registry=registry)
+    avax_price_metric.set(avax_price)
+
+    atom_price = get_atom_price()
+    atom_price_metric = Gauge("atom_price", "atom price", registry=registry)
+    atom_price_metric.set(atom_price)
+
+    dot_price = get_dot_price()
+    dot_price_metric = Gauge("dot_price", "dot price", registry=registry)
+    dot_price_metric.set(dot_price)
+
+    # dydx_price = get_dydx_price()
+    # dydx_price_metric = Gauge("dydx_price", "dydx price", registry=registry)
+    # dydx_price_metric.set(dydx_price)
+
+    # ksm_price = get_ksm_price()
+    # ksm_price_metric = Gauge("ksm_price", "ksm price", registry=registry)
+    # ksm_price_metric.set(ksm_price)
+
     return registry
 
 def get_gasprices():
@@ -89,6 +113,42 @@ def get_coin_price(coin):
     resp = requests.request("GET", url).json()
     price = float(resp['last'])
     return price
+
+def get_dot_price():
+    price = get_coin_price("dot")
+    return price
+
+def get_atom_price():
+    price = get_coin_price("atom")
+    return price
+
+def get_avax_price():
+    price = get_coin_price("avax")
+    return price
+
+def get_ftt_price():
+    price = get_coin_price("ftt")
+    return price
+
+def get_sol_price():
+    price = get_coin_price("sol")
+    return price
+
+# def get_ksm_price():
+#     price = get_coin_price("ksm")
+#     return price
+
+# def get_srm_price():
+#     price = get_coin_price("srm")
+#     return price
+
+# def get_ray_price():
+#     price = get_coin_price("ray")
+#     return price
+
+# def get_dydx_price():
+#     price = get_coin_price("dydx")
+#     return price
 
 def get_ftm_price():
     price = get_coin_price("ftm")
