@@ -74,6 +74,10 @@ def get_metrics():
     dydx_price_metric = Gauge("dydx_price", "dydx price", registry=registry)
     dydx_price_metric.set(dydx_price)
 
+    ftt_price = get_ftt_price()
+    ftt_price_metric = Gauge("ftt_price", "ftt price", registry=registry)
+    ftt_price_metric.set(ftt_price)
+
     # ksm_price = get_ksm_price()
     # ksm_price_metric = Gauge("ksm_price", "ksm price", registry=registry)
     # ksm_price_metric.set(ksm_price)
