@@ -70,9 +70,9 @@ def get_metrics():
     dot_price_metric = Gauge("dot_price", "dot price", registry=registry)
     dot_price_metric.set(dot_price)
 
-    # dydx_price = get_dydx_price()
-    # dydx_price_metric = Gauge("dydx_price", "dydx price", registry=registry)
-    # dydx_price_metric.set(dydx_price)
+    dydx_price = get_dydx_price()
+    dydx_price_metric = Gauge("dydx_price", "dydx price", registry=registry)
+    dydx_price_metric.set(dydx_price)
 
     # ksm_price = get_ksm_price()
     # ksm_price_metric = Gauge("ksm_price", "ksm price", registry=registry)
@@ -146,9 +146,9 @@ def get_sol_price():
 #     price = get_coin_price("ray")
 #     return price
 
-# def get_dydx_price():
-#     price = get_coin_price("dydx")
-#     return price
+def get_dydx_price():
+    price = get_coin_price("dydx")
+    return price
 
 def get_ftm_price():
     price = get_coin_price("ftm")
