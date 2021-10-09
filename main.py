@@ -19,12 +19,10 @@ def get_metrics():
 
     gasprices = get_gasprices()
 
-    # https://eth-converter.com/
-    gwei = 1000000000
-    rapid = gasprices['rapid']/gwei
-    fast = gasprices['fast']/gwei
-    standard = gasprices['standard']/gwei
-    slow = gasprices['slow']/gwei
+    rapid = gasprices['instant']['gwei']
+    fast = gasprices['fast']['gwei']
+    standard = gasprices['normal']['gwei']
+    slow = gasprices['slow']['gwei']
 
     rapid_metric = Gauge("gas_rapid", "gas rapid", registry=registry)
     rapid_metric.set(rapid)
@@ -85,26 +83,16 @@ def get_metrics():
     return registry
 
 def get_gasprices():
-    '''
-      {
-        "code": 200,
-        "data": {
-            "rapid": 49000000000,
-            "fast": 39512143433,
-            "standard": 38512143433,
-            "slow": 38512143433,
-            "timestamp": 1631956024923
-        }
-      }
-    '''
+    # https://docs.ethgas.watch/api
+    # https://eth-converter.com/
 
     headers = {'content-type': 'application/json'}
-    url = "https://www.gasnow.org/api/v3/gas/price"
+    url = "https://ethgas.watch/api/gas"
 
     payload = None
     resp = requests.request("GET", url, headers=headers, data=payload).json()
 
-    gasprices = resp['data']
+    gasprices = resp
 
     return gasprices
 
