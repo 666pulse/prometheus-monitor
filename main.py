@@ -19,10 +19,10 @@ def get_metrics():
 
     gasprices = get_gasprices()
 
-    rapid = gasprices['instant']['gwei']
-    fast = gasprices['fast']['gwei']
-    standard = gasprices['normal']['gwei']
-    slow = gasprices['slow']['gwei']
+    rapid = round(gasprices['fastest'], 0)
+    fast = round(gasprices['fast'], 0)
+    standard = round(gasprices['medium'], 0)
+    slow = round(gasprices['slow'], 0)
 
     rapid_metric = Gauge("gas_rapid", "gas rapid", registry=registry)
     rapid_metric.set(rapid)
@@ -85,14 +85,15 @@ def get_metrics():
 def get_gasprices():
     # https://docs.ethgas.watch/api
     # https://eth-converter.com/
+    # https://doc.upvest.co/reference
 
     headers = {'content-type': 'application/json'}
-    url = "https://ethgas.watch/api/gas"
+    url = "https://fees.upvest.co/estimate_eth_fees"
 
     payload = None
     resp = requests.request("GET", url, headers=headers, data=payload).json()
 
-    gasprices = resp
+    gasprices = resp['estimates']
 
     return gasprices
 
