@@ -2,7 +2,7 @@
 
 ## Prometheus
 
-### config 
+### config
 
 ```yml
 # my global config
@@ -31,14 +31,14 @@ scrape_configs:
 
     static_configs:
     - targets: ['localhost:8000']
-```    
+```
 
-### run 
+### run
 
 ```shell
-prometheus --web.listen-address 0.0.0.0:9090
+prometheus --web.listen-address 0.0.0.0:9090 # prometheus service
 
-python3 ./main.py
+python3 ./main.py # custom Prometheus integration
 ```
 
 ## Grafana
@@ -50,6 +50,7 @@ wget https://dl.grafana.com/oss/release/grafana_8.1.4_amd64.deb
 
 sudo dpkg -i grafana_8.1.4_amd64.deb
 ```
+
 ### change port
 
 ```ini
@@ -57,6 +58,7 @@ sudo dpkg -i grafana_8.1.4_amd64.deb
 [server]
 http_port=xxxx
 ```
+
 ### Start the server
 
 ```shell
@@ -76,3 +78,15 @@ https://grafana.com/docs/grafana/latest/installation/
 https://grafana.com/docs/grafana/latest/administration/configuration/#comments-in-ini-files
 
 <!-- https://api.weather.gov/gridpoints/RAH/73,57/forecast/hourly -->
+
+## Many blockchain framework support prometheus metrics
+
+### Tendermint
+
+https://docs.tendermint.com/master/nodes/metrics.html
+
+### ETH
+
+https://dev.to/odyslam/how-to-monitor-ethereum-node-in-under-5m-3n
+
+https://ethereum.org/en/developers/tutorials/monitoring-geth-with-influxdb-and-grafana/
