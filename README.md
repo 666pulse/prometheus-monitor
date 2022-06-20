@@ -51,6 +51,17 @@ wget https://dl.grafana.com/oss/release/grafana_9.0.0_amd64.deb
 sudo dpkg -i grafana_9.0.0_amd64.deb
 ```
 
+### security
+
+```ini
+; /etc/grafana/grafana.ini
+# default admin user, created on startup
+admin_user = admin
+
+# default admin password, can be changed before first start of grafana,  or in profile settings
+admin_password = admin
+```
+
 ### change port
 
 ```ini
