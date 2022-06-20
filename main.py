@@ -17,6 +17,8 @@ def metrics():
 def get_metrics():
     registry = CollectorRegistry()
 
+    ##### gas #####
+
     gasprices = get_gasprices()
 
     rapid = round(gasprices['fastest'], 0)
@@ -36,6 +38,8 @@ def get_metrics():
     slow_metric = Gauge("gas_slow", "gas slow", registry=registry)
     slow_metric.set(slow)
 
+    ##### coin #####
+
     btc_price = get_btc_price()
     btc_price_metric = Gauge("btc_price", "btc price", registry=registry)
     btc_price_metric.set(btc_price)
@@ -43,22 +47,6 @@ def get_metrics():
     eth_price = get_eth_price()
     eth_price_metric = Gauge("eth_price", "eth price", registry=registry)
     eth_price_metric.set(eth_price)
-
-    icp_price = get_icp_price()
-    icp_price_metric = Gauge("icp_price", "icp price", registry=registry)
-    icp_price_metric.set(icp_price)
-
-    ftm_price = get_ftm_price()
-    ftm_price_metric = Gauge("ftm_price", "ftm price", registry=registry)
-    ftm_price_metric.set(ftm_price)
-
-    sol_price = get_sol_price()
-    sol_price_metric = Gauge("sol_price", "sol price", registry=registry)
-    sol_price_metric.set(sol_price)
-
-    avax_price = get_avax_price()
-    avax_price_metric = Gauge("avax_price", "avax price", registry=registry)
-    avax_price_metric.set(avax_price)
 
     atom_price = get_atom_price()
     atom_price_metric = Gauge("atom_price", "atom price", registry=registry)
@@ -68,17 +56,29 @@ def get_metrics():
     dot_price_metric = Gauge("dot_price", "dot price", registry=registry)
     dot_price_metric.set(dot_price)
 
-    dydx_price = get_dydx_price()
-    dydx_price_metric = Gauge("dydx_price", "dydx price", registry=registry)
-    dydx_price_metric.set(dydx_price)
+    ##### exchange #####
+
+    bnb_price = get_bnb_price()
+    bnb_price_metric = Gauge("bnb_price", "bnb price", registry=registry)
+    bnb_price_metric.set(bnb_price)
 
     ftt_price = get_ftt_price()
     ftt_price_metric = Gauge("ftt_price", "ftt price", registry=registry)
     ftt_price_metric.set(ftt_price)
 
-    # ksm_price = get_ksm_price()
-    # ksm_price_metric = Gauge("ksm_price", "ksm price", registry=registry)
-    # ksm_price_metric.set(ksm_price)
+    ##### defi #####
+
+    uni_price = get_uni_price()
+    uni_price_metric = Gauge("uni_price", "uni price", registry=registry)
+    uni_price_metric.set(uni_price)
+
+    aave_price = get_aave_price()
+    aave_price_metric = Gauge("aave_price", "aave price", registry=registry)
+    aave_price_metric.set(aave_price)
+
+    comp_price = get_comp_price()
+    comp_price_metric = Gauge("comp_price", "comp price", registry=registry)
+    comp_price_metric.set(comp_price)
 
     return registry
 
@@ -107,46 +107,6 @@ def get_coin_price(coin):
     price = float(resp['last'])
     return price
 
-def get_dot_price():
-    price = get_coin_price("dot")
-    return price
-
-def get_atom_price():
-    price = get_coin_price("atom")
-    return price
-
-def get_avax_price():
-    price = get_coin_price("avax")
-    return price
-
-def get_ftt_price():
-    price = get_coin_price("ftt")
-    return price
-
-def get_sol_price():
-    price = get_coin_price("sol")
-    return price
-
-# def get_ksm_price():
-#     price = get_coin_price("ksm")
-#     return price
-
-# def get_srm_price():
-#     price = get_coin_price("srm")
-#     return price
-
-# def get_ray_price():
-#     price = get_coin_price("ray")
-#     return price
-
-def get_dydx_price():
-    price = get_coin_price("dydx")
-    return price
-
-def get_ftm_price():
-    price = get_coin_price("ftm")
-    return price
-
 def get_btc_price():
     price = get_coin_price("btc")
     return price
@@ -155,8 +115,32 @@ def get_eth_price():
     price = get_coin_price("eth")
     return price
 
-def get_icp_price():
-    price = get_coin_price("icp")
+def get_dot_price():
+    price = get_coin_price("dot")
+    return price
+
+def get_atom_price():
+    price = get_coin_price("atom")
+    return price
+
+def get_bnb_price():
+    price = get_coin_price("bnb")
+    return price
+
+def get_ftt_price():
+    price = get_coin_price("ftt")
+    return price
+
+def get_uni_price():
+    price = get_coin_price("uni")
+    return price
+
+def get_aave_price():
+    price = get_coin_price("aave")
+    return price
+
+def get_comp_price():
+    price = get_coin_price("comp")
     return price
 
 if __name__ == '__main__':
