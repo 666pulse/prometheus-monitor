@@ -21,10 +21,10 @@ def get_metrics():
 
     gasprices = get_gasprices()
 
-    rapid = round(gasprices['fastest'], 0)
-    fast = round(gasprices['fast'], 0)
-    standard = round(gasprices['medium'], 0)
-    slow = round(gasprices['slow'], 0)
+    rapid = round(gasprices[0]['maxFeePerGas'], 0)
+    fast = round(gasprices[1]['maxFeePerGas'], 0)
+    standard = round(gasprices[2]['maxFeePerGas'], 0)
+    slow = round(gasprices[4]['maxFeePerGas'], 0)
 
     rapid_metric = Gauge("gas_rapid", "gas rapid", registry=registry)
     rapid_metric.set(rapid)
@@ -86,15 +86,14 @@ def get_gasprices():
     # https://docs.ethgas.watch/api
     # https://eth-converter.com/
     # https://doc.upvest.co/reference
+    # https://fees.upvest.co/estimate_eth_fees
 
     headers = {'content-type': 'application/json'}
-    url = "https://fees.upvest.co/estimate_eth_fees"
+    url = "https://api.blocknative.com/gasprices/blockprices?chainid=1"
 
     payload = None
     resp = requests.request("GET", url, headers=headers, data=payload).json()
-
-    gasprices = resp['estimates']
-
+    gasprices = resp['blockPrices'][0]['estimatedPrices']
     return gasprices
 
 def get_coin_price(coin):
