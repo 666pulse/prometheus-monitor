@@ -21,10 +21,10 @@ def get_metrics():
 
     gasprices = get_gasprices()
 
-    rapid = round(gasprices[0]['maxFeePerGas'], 0)
-    fast = round(gasprices[1]['maxFeePerGas'], 0)
-    standard = round(gasprices[2]['maxFeePerGas'], 0)
-    slow = round(gasprices[4]['maxFeePerGas'], 0)
+    rapid = round(gasprices[0]['price'], 0)
+    fast = round(gasprices[1]['price'], 0)
+    standard = round(gasprices[2]['price'], 0)
+    slow = round(gasprices[4]['price'], 0)
 
     rapid_metric = Gauge("gas_rapid", "gas rapid", registry=registry)
     rapid_metric.set(rapid)
