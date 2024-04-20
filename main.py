@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return Response('prometheus server\n', mimetype='text/plain')
+    return Response('prometheus server is running\n', mimetype='text/plain')
 
 @app.route('/metrics')
 def metrics():
@@ -18,9 +18,23 @@ def metrics():
 def get_metrics():
     registry = CollectorRegistry()
 
-    ##### gas #####
+    ##### btc fee #####
+    btc_fee = get_btc_fee()
 
-    gasprices = get_gasprices()
+    btc_fee_fastest_metric = Gauge("btc_fee_fastest_metric", "btc fee fastest", registry=registry)
+    btc_fee_fastest_metric.set(btc_fee['fastestFee'])
+
+    btc_fee_halfhour_metric = Gauge("btc_fee_halfhour_metric", "btc fee halfhour", registry=registry)
+    btc_fee_halfhour_metric.set(btc_fee['halfHourFee'])
+
+    btc_fee_hour_metric = Gauge("btc_fee_hour_metric", "btc fee hour", registry=registry)
+    btc_fee_hour_metric.set(btc_fee['hourFee'])
+
+    btc_fee_economy_metric = Gauge("btc_fee_economy_metric", "btc fee economy", registry=registry)
+    btc_fee_economy_metric.set(btc_fee['economyFee'])
+
+    ##### eth gas #####
+    gasprices = get_eth_gasprices()
 
     rapid = round(gasprices[0]['price'], 0)
     fast = round(gasprices[1]['price'], 0)
@@ -41,12 +55,20 @@ def get_metrics():
 
     ##### coin #####
 
-    coin_collector = CoinCollector()
-    registry.register(coin_collector)
+    # coin_collector = CoinCollector()
+    # registry.register(coin_collector)
 
     return registry
 
-def get_gasprices():
+def get_btc_fee():
+    headers = {'content-type': 'application/json'}
+    url = "https://mempool.space/api/v1/fees/recommended"
+
+    payload = None
+    resp = requests.request("GET", url, headers=headers, data=payload).json()
+    return resp
+
+def get_eth_gasprices():
     # https://docs.ethgas.watch/api
     # https://eth-converter.com/
     # https://doc.upvest.co/reference
@@ -63,10 +85,10 @@ def get_gasprices():
 
 class CoinCollector():
     def format_metric_name(self):
-        return 'os_memory_'
+        return 'cryptoassets_price_'
 
     def collect(self):
-        coin_list = ["btc", "eth", "atom", "dot", "bnb", "ftt", "uni", "aave", "comp"]
+        coin_list = ["btc", "eth", "bnb", "uni", "aave", "comp"]
 
         for coin in coin_list:
             label = coin + "_price"
