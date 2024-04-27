@@ -90,6 +90,10 @@ https://dev.to/odyslam/how-to-monitor-ethereum-node-in-under-5m-3n
 
 https://ethereum.org/en/developers/tutorials/monitoring-geth-with-influxdb-and-grafana/
 
+### influx
+
+https://www.influxdata.com/blog/create-bitcoin-buy-sell-alerts-influxdb/
+
 ---
 
 Refer:
