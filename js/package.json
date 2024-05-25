@@ -1,0 +1,16 @@
+{
+  "name": "raydium",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "keywords": [],
+  "author": "",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "dev": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "prom-client": "^15.1.2"
+  }
+}

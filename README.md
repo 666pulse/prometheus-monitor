@@ -98,9 +98,11 @@ https://www.influxdata.com/blog/create-bitcoin-buy-sell-alerts-influxdb/
 
 Refer:
 
-https://grafana.com/grafana/download?edition=oss
+https://medium.com/@onukwilip/integrating-prometheus-into-node-express-js-app-using-the-prom-client-library-to-monitor-app-604641049556
 
 https://opensource.com/article/19/4/weather-python-prometheus
+
+https://grafana.com/grafana/download?edition=oss
 
 https://grafana.com/docs/grafana/latest/installation/
 
